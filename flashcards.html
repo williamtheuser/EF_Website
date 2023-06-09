@@ -1,0 +1,600 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="oouil.webp">
+    
+    <title>custom flashcards</title>
+
+</head>
+
+
+<body>
+    <ul class="navigation">
+        <li><a href="seedgen.html">Seed gen.</a></li>
+        
+        <li><a href="iframegen.html">Iframe gen.</a></li>
+        
+        <li><a href="flashcards.html" class="active">flashcards</a></li>
+ 
+        <li class="right"><input id="color" onchange="setbackgr(this.value)" type="color"></li>
+    </ul>
+
+
+
+    
+<center>
+    <br><br>
+    <p id="front" onclick="flipcard()" style="display: none;">hall</p>
+    
+    <p id="back" onclick="flipcard()" style="display: flex;">Halle</p>
+    
+    <p id="counter">1</p>
+    
+    
+    <button onclick="flipcard()">flip</button>
+    <br><br>
+    <button onclick="nextvocab()">next</button> <button onclick="prevvocab()">previous</button>
+    <br><br>
+    
+    <br><br>
+
+
+    
+
+
+    </div>
+    
+    </center>
+    
+    
+    
+        
+    
+    
+    
+    <script>
+        document.getElementById("back").style.display = "none"
+    
+        function flipcard() {
+            if (document.getElementById("back").style.display == "none") {
+                document.getElementById("back").style.display = "flex"
+                document.getElementById("front").style.display = "none"
+            }
+    
+            else {
+                document.getElementById("front").style.display = "flex"
+                document.getElementById("back").style.display = "none"
+            }
+        }
+    
+        function nextvocab() {
+            var front = document.getElementById("front")
+            var back = document.getElementById("back")
+            document.getElementById("counter").innerHTML = Number(document.getElementById("counter").innerHTML) + 1
+            var counter = document.getElementById("counter").innerHTML
+    
+            var english = [
+  'apple',
+  'banana',
+  'cat',
+  'dog',
+  'elephant',
+  'flower',
+  'guitar',
+  'house',
+  'ice cream',
+  'jungle',
+  'king',
+  'lion',
+  'mountain',
+  'night',
+  'ocean',
+  'piano',
+  'queen',
+  'river',
+  'sun',
+  'tree',
+  'umbrella',
+  'violet',
+  'water',
+  'xylophone',
+  'yellow',
+  'zebra',
+  'airplane',
+  'ball',
+  'car',
+  'desk',
+  'egg',
+  'fire',
+  'globe',
+  'hat',
+  'island',
+  'jacket',
+  'kite',
+  'lemon',
+  'moon',
+  'notebook',
+  'orange',
+  'parrot',
+  'quilt',
+  'rainbow',
+  'snake',
+  'table',
+  'unicorn',
+  'violin',
+  'whale',
+  'xylophon',
+  'yogurt',
+  'zeppelin',
+  'ant',
+  'bear',
+  'cherry',
+  'dolphin',
+  'elektronik',
+  'flamingo',
+  'giraffe',
+  'honey',
+  'ice',
+  'jellyfish',
+  'kiwi',
+  'leopard',
+  'monkey',
+  'nut',
+  'octopus',
+  'pear',
+  'quokka',
+  'rabbit',
+  'star',
+  'tiger',
+  'umbau',
+  'vase',
+  'whistle',
+  'xylograph',
+  'yacht',
+  'zealot',
+  'artist',
+  'ballerina',
+  'chef',
+  'dancer',
+  'engineer',
+  'firefighter',
+  'gamer',
+  'hiker',
+  'inventor',
+  'juggler',
+  'karateka',
+  'lawyer',
+  'musician',
+  'nurse',
+  'optician',
+  'painter',
+  'queen',
+  'rider',
+  'scientist',
+  'teacher',
+  'umbrella maker',
+  'violinist',
+  'writer',
+  'xylophonist',
+  'yoga instructor',
+  'zeppelin pilot'
+];
+
+var german = [
+  'Apfel',
+  'Banane',
+  'Katze',
+  'Hund',
+  'Elefant',
+  'Blume',
+  'Gitarre',
+  'Haus',
+  'Eiscreme',
+  'Dschungel',
+  'König',
+  'Löwe',
+  'Berg',
+  'Nacht',
+  'Ozean',
+  'Klavier',
+  'Königin',
+  'Fluss',
+  'Sonne',
+  'Baum',
+  'Regenschirm',
+  'Veilchen',
+  'Wasser',
+  'Xylophon',
+  'Gelb',
+  'Zebra',
+  'Flugzeug',
+  'Ball',
+  'Auto',
+  'Schreibtisch',
+  'Ei',
+  'Feuer',
+  'Globus',
+  'Hut',
+  'Insel',
+  'Jacke',
+  'Drachen',
+  'Zitrone',
+  'Mond',
+  'Notizbuch',
+  'Orange',
+  'Papagei',
+  'Quilt',
+  'Regenbogen',
+  'Schlange',
+  'Tisch',
+  'Einhorn',
+  'Violine',
+  'Wal',
+  'Xylophon',
+  'Joghurt',
+  'Zeppelin',
+  'Ameise',
+  'Bär',
+  'Kirsche',
+  'Delfin',
+  'Elektronik',
+  'Flamingo',
+  'Giraffe',
+  'Honig',
+  'Eis',
+  'Qualle',
+  'Kiwi',
+  'Leopard',
+  'Affe',
+  'Nuss',
+  'Oktopus',
+  'Birne',
+  'Quokka',
+  'Hase',
+  'Stern',
+  'Tiger',
+  'Umbau',
+  'Vase',
+  'Pfeife',
+  'Xylograph',
+  'Yacht',
+  'Eiferer',
+  'Künstler',
+  'Ballerina',
+  'Koch',
+  'Tänzer',
+  'Ingenieur',
+  'Feuerwehrmann',
+  'Gamer',
+  'Wanderer',
+  'Erfinder',
+  'Jongleur',
+  'Karateka',
+  'Anwalt',
+  'Musiker',
+  'Krankenschwester',
+  'Optiker',
+  'Maler',
+  'Königin',
+  'Reiter',
+  'Wissenschaftler',
+  'Lehrer',
+  'Schirmmacher',
+  'Geiger',
+  'Autor',
+  'Xylophonist',
+  'Yoga-Lehrer',
+  'Zeppelin-Pilot'
+];
+
+            front.innerHTML = english[counter]
+    
+            back.innerHTML =  german[counter]
+    
+        }
+
+        
+    
+        function prevvocab() {
+            var front = document.getElementById("front")
+            var back = document.getElementById("back")
+            document.getElementById("counter").innerHTML = Number(document.getElementById("counter").innerHTML) - 1
+            var counter = document.getElementById("counter").innerHTML
+    
+            var english = [
+  'apple',
+  'banana',
+  'cat',
+  'dog',
+  'elephant',
+  'flower',
+  'guitar',
+  'house',
+  'ice cream',
+  'jungle',
+  'king',
+  'lion',
+  'mountain',
+  'night',
+  'ocean',
+  'piano',
+  'queen',
+  'river',
+  'sun',
+  'tree',
+  'umbrella',
+  'violet',
+  'water',
+  'xylophone',
+  'yellow',
+  'zebra',
+  'airplane',
+  'ball',
+  'car',
+  'desk',
+  'egg',
+  'fire',
+  'globe',
+  'hat',
+  'island',
+  'jacket',
+  'kite',
+  'lemon',
+  'moon',
+  'notebook',
+  'orange',
+  'parrot',
+  'quilt',
+  'rainbow',
+  'snake',
+  'table',
+  'unicorn',
+  'violin',
+  'whale',
+  'xylophon',
+  'yogurt',
+  'zeppelin',
+  'ant',
+  'bear',
+  'cherry',
+  'dolphin',
+  'elektronik',
+  'flamingo',
+  'giraffe',
+  'honey',
+  'ice',
+  'jellyfish',
+  'kiwi',
+  'leopard',
+  'monkey',
+  'nut',
+  'octopus',
+  'pear',
+  'quokka',
+  'rabbit',
+  'star',
+  'tiger',
+  'umbau',
+  'vase',
+  'whistle',
+  'xylograph',
+  'yacht',
+  'zealot',
+  'artist',
+  'ballerina',
+  'chef',
+  'dancer',
+  'engineer',
+  'firefighter',
+  'gamer',
+  'hiker',
+  'inventor',
+  'juggler',
+  'karateka',
+  'lawyer',
+  'musician',
+  'nurse',
+  'optician',
+  'painter',
+  'queen',
+  'rider',
+  'scientist',
+  'teacher',
+  'umbrella maker',
+  'violinist',
+  'writer',
+  'xylophonist',
+  'yoga instructor',
+  'zeppelin pilot'
+];
+
+var german = [
+  'Apfel',
+  'Banane',
+  'Katze',
+  'Hund',
+  'Elefant',
+  'Blume',
+  'Gitarre',
+  'Haus',
+  'Eiscreme',
+  'Dschungel',
+  'König',
+  'Löwe',
+  'Berg',
+  'Nacht',
+  'Ozean',
+  'Klavier',
+  'Königin',
+  'Fluss',
+  'Sonne',
+  'Baum',
+  'Regenschirm',
+  'Veilchen',
+  'Wasser',
+  'Xylophon',
+  'Gelb',
+  'Zebra',
+  'Flugzeug',
+  'Ball',
+  'Auto',
+  'Schreibtisch',
+  'Ei',
+  'Feuer',
+  'Globus',
+  'Hut',
+  'Insel',
+  'Jacke',
+  'Drachen',
+  'Zitrone',
+  'Mond',
+  'Notizbuch',
+  'Orange',
+  'Papagei',
+  'Quilt',
+  'Regenbogen',
+  'Schlange',
+  'Tisch',
+  'Einhorn',
+  'Violine',
+  'Wal',
+  'Xylophon',
+  'Joghurt',
+  'Zeppelin',
+  'Ameise',
+  'Bär',
+  'Kirsche',
+  'Delfin',
+  'Elektronik',
+  'Flamingo',
+  'Giraffe',
+  'Honig',
+  'Eis',
+  'Qualle',
+  'Kiwi',
+  'Leopard',
+  'Affe',
+  'Nuss',
+  'Oktopus',
+  'Birne',
+  'Quokka',
+  'Hase',
+  'Stern',
+  'Tiger',
+  'Umbau',
+  'Vase',
+  'Pfeife',
+  'Xylograph',
+  'Yacht',
+  'Eiferer',
+  'Künstler',
+  'Ballerina',
+  'Koch',
+  'Tänzer',
+  'Ingenieur',
+  'Feuerwehrmann',
+  'Gamer',
+  'Wanderer',
+  'Erfinder',
+  'Jongleur',
+  'Karateka',
+  'Anwalt',
+  'Musiker',
+  'Krankenschwester',
+  'Optiker',
+  'Maler',
+  'Königin',
+  'Reiter',
+  'Wissenschaftler',
+  'Lehrer',
+  'Schirmmacher',
+  'Geiger',
+  'Autor',
+  'Xylophonist',
+  'Yoga-Lehrer',
+  'Zeppelin-Pilot'
+];
+            front.innerHTML = english[counter]
+    
+            back.innerHTML =  german[counter]
+    
+        }
+    
+        function turnanimation() {
+            var height = document.getElementById("front").style.height
+            height = height.slice(-2) -5
+    
+        }
+
+        
+    
+        
+            
+        
+        function setbackgr(x) {
+        document.body.style.background = x;
+        z = x;
+        document.cookie = z
+        if (document.getElementById("front") || document.getElementById("back")) {
+            var cardcolor = document.getElementsByTagName("body")[0].style.backgroundColor.split(",")
+            cardcolor[1] = "200"
+            cardcolor = cardcolor.join()
+
+            document.getElementById("front").style.backgroundColor = cardcolor
+            document.getElementById("back").style.backgroundColor = cardcolor
+        }
+
+        }
+        
+        document.body.style.background = document.cookie;
+    
+    
+        flipcard()
+    
+    
+    </script>
+    
+    <style>
+        #front {
+            width: 400;
+            height: 300;
+            border: red 5px solid;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: large;
+            cursor: pointer;
+            background-color: lightgreen;
+            user-select: none;
+        }
+    
+        #back {
+            width: 400;
+            height: 300;
+            border: red 5px solid;
+            border-radius: 5px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: large;
+            cursor: pointer;
+            background-color: lightgreen;
+            user-select: none;
+        }
+    
+        button {
+            cursor: pointer;
+        }
+       
+    </style>
+
+
+
+</body>
+
+</html>

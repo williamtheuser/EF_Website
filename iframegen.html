@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="oouil.webp">
+    
+    <title>Minecraft Seed Generator</title>
+
+</head>
+
+
+<body>
+    <ul class="navigation">
+        <li><a href="seedgen.html">Seed gen.</a></li>
+        
+        <li><a href="iframegen.html" class="active">Iframe gen.</a></li>
+        
+        <li><a href="flashcards.html">flashcards</a></li>
+        
+             
+        <li class="right"><input id="color" onchange="setbackgr(this.value)" type="color"></li>
+    </ul>
+    <br>
+    <br>
+    <br>
+
+
+    <h1>Iframe Generator</h1>
+    <br>
+
+
+    <div style="display: inline-block;">
+    <h2>Name:</h2> <div class="nobr"></div>
+    <input onchange="liveMode()" type="value" id="name">
+    </div>
+
+    <h2>X-axis:</h2>
+    <input onchange="liveMode()" type="value" id="xlen">
+
+    <h2>Y-axis:</h2>
+    <input onchange="liveMode()" type="value" id="ylen">
+
+    <h2>Url:</h2>
+    <input onchange="liveMode()" type="value" id="url">
+
+
+
+    <h2>Border:</h2> <input type="checkbox" name="" class="cbox" id="checkb" onclick="dispbordsett()">
+    <br><br><br>
+    <div id="borderdisp">
+        <input type="color" onchange="liveMode()" id="borderColor" placeholder="color">
+        <input type="range" onchange="liveMode()" min="1" max="50" id="thickness">
+        
+
+        <select onchange="liveMode()" name="bordertype" id="borderstyle">
+            <option value="none">none
+            </option><option value="hidden">hidden
+            </option><option value="solid">solid
+            </option><option value="dotted">dotted
+            </option><option value="dashed">dashed 
+            </option>
+        </select>
+
+    </div>
+<br>
+<button onclick="geniframe()">Generate Iframe</button> <p>live mode</p><input type="checkbox" name="" id="liveSwitch">
+<br>
+<br>
+
+
+
+    <div class="invisible">
+        <iframe id="source" src="" name="myiFrame"></iframe>
+    </div>
+
+
+
+    
+
+    <br><br><br>
+    
+    <br>
+    <br>
+    <textarea name="" class="blackgreen" id="output" cols="30" rows="10"></textarea>
+    <br><br>
+    <p id="error">  </p>
+
+    <center>
+    
+    
+
+    
+  
+    </center>
+    <br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+    
+</body>
+<script>
+    document.getElementsByClassName("blackgreen")[0].style.height = "30"
+    document.getElementById("url").value = "https://"
+    document.getElementsByClassName("cbox")[0].checked = false
+
+    function geniframe() {
+        var xlen = document.getElementById("xlen").value
+        var ylen = document.getElementById("ylen").value
+        var name = document.getElementById("name").value
+        var url = document.getElementById("url").value
+
+        
+
+        var source = document.getElementById("source")
+
+        var border_check = document.getElementsByClassName("cbox")[0].checked
+
+        if (border_check == true) {
+
+            var borderStyle = document.getElementById("borderstyle").value
+            var borderWidth = document.getElementById("thickness").value
+            var borderColor = document.getElementById("borderColor").value
+            source.style.border = `${borderWidth}px ${borderColor} ${borderStyle}`
+        }
+
+        else {
+            source.style.border = ""
+        }
+
+        source.name = name
+        source.src = url
+        source.style.width = xlen + "px"
+        source.style.height = ylen  + "px"
+
+        var final = document.getElementById("source").outerHTML
+        document.getElementById("output").value = final
+
+
+        var invisibleActive = document.getElementsByClassName("invisible")[0]
+        if (invisibleActive) {
+            document.getElementsByClassName("invisible")[0].className = "visible"
+        }
+        
+
+
+
+    }
+
+    
+
+    function liveMode() {
+        var live = document.getElementById("liveSwitch").checked
+        if (live == true) {
+            geniframe()
+        }
+    }
+    
+
+    function dispbordsett() {
+        liveMode()
+        var visible = document.getElementsByClassName("cbox")[0].checked
+        if (visible == false) {
+            document.getElementById("borderdisp").style.display = "none"
+            console.log("if")
+        }
+
+        else {
+            document.getElementById("borderdisp").style.display = "block"
+            console.log("else")
+        }
+    }
+
+    
+
+    function setbackgr(x) {
+        document.body.style.background = x;
+        z = x;
+        document.cookie = z
+        //var z = ""
+    }
+    //z = prompt()
+    //document.cookie = 'bcolor='+z+"; path=/*;"
+    document.body.style.background = document.cookie;
+
+
+ 
+</script>
+</html>

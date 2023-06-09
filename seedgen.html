@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="oouil.webp">
+    
+    <title>Minecraft Seed Generator</title>
+
+</head>
+
+
+<body>
+    <ul class="navigation">
+        <li><a href="seedgen.html" class="active">Seed gen.</a></li>
+             
+        <li><a href="iframegen.html">Iframe gen.</a></li>
+        
+        <li><a href="flashcards.html">flashcards</a></li>
+        
+             
+        <li class="right"><input id="color" onchange="setbackgr(this.value)" type="color"></li>
+    </ul>
+    <br>
+    <br>
+    <br>
+
+
+    <h1>Minecraft Seed generator</h1>
+    <br>
+    <h3>You have Minecraft installed?</h3>
+    <button onclick="window.location = 'minecraft:'">Open</button>
+
+    <h2>seedlenght:</h2>
+    <input type="value" id="seedlenght">
+
+    <h2>leave out specific number:</h2>
+    <input type="value" id="leaveout">
+
+
+    <br><br><br>
+    <button onclick="genseed()">Generate seed</button>
+    <br>
+    <br>
+    <p id="output"></p>
+    <br><br>
+    <p id="error">  </p>
+
+    <center>
+    
+    
+
+    
+  
+    </center>
+    <br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+    
+</body>
+<script>
+  function setbackgr(x) {
+    document.body.style.background = x;
+    z = x;
+    document.cookie = z
+    //var z = ""
+  }
+  //z = prompt()
+  //document.cookie = 'bcolor='+z+"; path=/*;"
+  document.body.style.background = document.cookie;
+
+
+  function genseed(y) {
+    var len = document.getElementById("seedlenght").value
+    var omit = document.getElementById("leaveout").value
+    ints = "0123456789"
+    document.getElementById("error").innerHTML = ""
+
+    if (omit == "") {
+        document.getElementById("output").innerHTML = ""
+        for (let i = 0; i < len; i++) {
+            var a = Math.floor(Math.random() * 10);
+            document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + String(a)
+        }
+    }
+
+    if (ints.includes(omit)) {
+        document.getElementById("output").innerHTML = ""
+        for (let i = 0; i < len; i++) {
+            var a = Math.floor(Math.random() * 10);
+            if (a == omit) {
+                len++;
+            }
+
+            else {
+                document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + String(a) 
+            }
+            
+        }
+    }
+
+    else {
+        document.getElementById("error").innerHTML = "The second field must be an integer lower than 10."
+        document.getElementById("error").style.display = "inline-block"
+    }
+        
+        
+            
+}
+
+</script>
+</html>
